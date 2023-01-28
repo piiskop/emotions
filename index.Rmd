@@ -4,11 +4,10 @@ site: bookdown::bookdown_site
 author: "peacecop kalmer:"
 colorlinks: TRUE
 date: "`r Sys.Date()`"
-description: "This is the manual for creating content using RStudio Server."
-lang: en
-title: |
-    Manual for creating content using  
-    RStudio Server
+description: "graphical representation of emotions"
+lang: et
+include-before:
+    - \input{title-page.tex}
 
 documentclass: book
 papersize: a4
@@ -21,6 +20,7 @@ mainfont: DejaVu Serif # for displaying both Chinese symbols and emojis
 CJKmainfont: Droid Sans Fallback
 
 bibliography: [references.bib]
+csl: apa-numeric-superscript-brackets.csl
 link-citations: yes
 
 lof: yes
@@ -215,23 +215,58 @@ render_color <- function(color, text) {
 
 ```
 
-# Introduction
+# Tunded
 
-Once upon a time, a student asked me to help him in R. i had no experience with R, however i gave it a chance. i installed RStudio Server. Months passed after my first use until i needed it for my stuff. i was studying statistics in a university and our teacher wanted us to create our solutions using a spreadsheet program. i saw that using R, i could learn more useful stuff and moved on RStudio Server. i learnt to create output using *bookdown* which is a library that can be used for creating websites or e-books while including calculations and graphs. As *bookdown* has a steap learning curve, i want to elaborate it here. Template strings are marked with angle brackets.
+Tunded on kirjeldatud tabelis \@ref(tab:emotions) leheküljel `r render_pageref(reference = "tab:emotions")`.
 
-For me, regarding cross-references, the following things are important:
+```{r label = "emotions"}
+x <- c(
+  0,
+  1
+)
 
-1. It must be possible to cross-reference between files.
+events <- c(
+  "the ground zero", # 0
+  "Katrin Laas: \"Ma arvan, et hindes ei ole kahtlust.\"" # 1
+)
 
-2. R code in one file must be accessible in another file.
+weights <- c(
+  0, # 0
+  1 # 1
+)
 
-3. Citations in table captions using `kableStyling` must be possible.
+incremental_weights <- c(0)
 
-Currently, *bookdown* supports all of them.
+for (index in 2:length(weights)) {
+  incremental_weights[index] <- incremental_weights[index - 1] + weights[index]
+}
 
-we can see the workflow of from the written markdown to the ready output on the figure \@ref(fig:workflow).
+emotions <- data.frame(
+  events = events,
+  weights = weights
+)
 
-```{r label = "workflow", fig.cap = paste("The workflow from the written markdown to the ready output using *bookdown*", render_with_emojis(text = "((ref:riederer-122))"), ".", sep = "")}
-include_external_graphics("rmd/workflow.png")
+colnames(emotions) <- c(
+  "Sündmus",
+  "Kaal"
+)
+
+print_table(table = emotions, caption = "Tunded.")
+
+```
+
+Tunded on graafiliselt esitatud joonisel \@ref(fig:graph-of-emotions) leheküljel `r render_pageref(reference = "fig:graph-of-emotions")`.
+
+```{r label = "graph-of-emotions", echo=FALSE, fig.cap="Emotsioonid."}
+librarian::shelf(c(
+  "ggplot2"
+))
+
+ggplot(data = emotions, aes(x = x, y = incremental_weights)) +
+  geom_point(shape = 23, color = "#008000", fill = "#008000", size = 3) +
+  labs(x = "Sündmus", y = "Kaal") +
+  theme(axis.text.x = element_text(angle = 90), axis.title.y = element_text(colour = "#008000"), axis.text.y = element_text(colour = "#008000"), axis.ticks.y = element_line(colour = "#008000"), axis.title.y.right = element_text(colour = "#ff6600"), axis.ticks.y.right = element_line(colour = "#ff6600"), axis.text.y.right = element_text(colour = "#ff6600")) +
+  scale_x_continuous("Sündmus", labels = events, breaks = x) +
+  geom_line()
 
 ```
