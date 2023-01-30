@@ -222,17 +222,26 @@ Tunded on kirjeldatud tabelis \@ref(tab:emotions) leheküljel `r render_pageref(
 ```{r label = "emotions"}
 x <- c(
   0,
-  1
+  1,
+  2
+)
+
+dates <- c(
+  "2023-10-27",
+  "2023-10-27",
+  "2023-10-30"
 )
 
 events <- c(
   "the ground zero", # 0
-  "Katrin Laas: \"Ma arvan, et hindes ei ole kahtlust.\"" # 1
+  "Katrin Laas: \"Ma arvan, et hindes ei ole kahtlust.\"", # 1
+  "Toimetulekutoetuse otsus oli seekord mitte arvestada tasemeõppetoetust tuluna ja toetussumma oli suurim." # 2
 )
 
 weights <- c(
   0, # 0
-  1 # 1
+  1, # 1
+  1 # 2
 )
 
 incremental_weights <- c(0)
@@ -242,16 +251,25 @@ for (index in 2:length(weights)) {
 }
 
 emotions <- data.frame(
+  dates = dates,
   events = events,
-  weights = weights
+  weights = weights,
+  incremental_weights = incremental_weights
 )
 
 colnames(emotions) <- c(
+  "Kuupäev",
   "Sündmus",
-  "Kaal"
+  "Kaal",
+  "Väärtus"
 )
 
-print_table(table = emotions, caption = "Tunded.")
+librarian::shelf(c(
+  "dplyr",
+  "kableExtra"
+))
+
+print_table(table = emotions, caption = "Tunded.") %>% column_spec(2, width = "32em") %>% landscape()
 
 ```
 
@@ -266,7 +284,7 @@ ggplot(data = emotions, aes(x = x, y = incremental_weights)) +
   geom_point(shape = 23, color = "#008000", fill = "#008000", size = 3) +
   labs(x = "Sündmus", y = "Kaal") +
   theme(axis.text.x = element_text(angle = 90), axis.title.y = element_text(colour = "#008000"), axis.text.y = element_text(colour = "#008000"), axis.ticks.y = element_line(colour = "#008000"), axis.title.y.right = element_text(colour = "#ff6600"), axis.ticks.y.right = element_line(colour = "#ff6600"), axis.text.y.right = element_text(colour = "#ff6600")) +
-  scale_x_continuous("Sündmus", labels = events, breaks = x) +
-  geom_line()
+  geom_line() +
+  scale_x_continuous("Sündmus", labels = dates, breaks = x)
 
 ```
