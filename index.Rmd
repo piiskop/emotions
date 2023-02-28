@@ -35,19 +35,6 @@ knitr::opts_chunk$set(
   echo = TRUE
 )
 
-local({
-  hook_source <- knitr::knit_hooks$get('source')
-  knitr::knit_hooks$set(source = function(x, options) {
-    x <- xfun::split_lines(x)
-    n <- nchar(x, 'width')
-    i <- seq_along(x)  # line numbers
-    n <- n + nchar(i)
-    s <- knitr:::v_spaces(max(n) - n)
-    x <- paste(x, s, '  # ', i, sep = '', collapse = '\n')
-    hook_source(x, options)
-  })
-})
-
 if (!require("librarian")) {
   install.packages("librarian", dependencies = TRUE)
 }
@@ -223,25 +210,29 @@ Tunded on kirjeldatud tabelis \@ref(tab:emotions) leheküljel `r render_pageref(
 x <- c(
   0,
   1,
-  2
+  2,
+  3
 )
 
 dates <- c(
-  "2023-10-27",
-  "2023-10-27",
-  "2023-10-30"
+  "2023-01-27",
+  "2023-01-27",
+  "2023-01-30",
+  "2023-02-28"
 )
 
 events <- c(
   "the ground zero", # 0
   "Katrin Laas: \"Ma arvan, et hindes ei ole kahtlust.\"", # 1
-  "Toimetulekutoetuse otsus oli seekord mitte arvestada tasemeõppetoetust tuluna ja toetussumma oli suurim." # 2
+  "Toimetulekutoetuse otsus oli seekord mitte arvestada tasemeõppetoetust tuluna ja toetussumma oli suurim.", # 2
+  "Toimetulekutoetuse otsus oli seekord mitte arvestada tasemeõppetoetust tuluna." # 3
 )
 
 weights <- c(
   0, # 0
   1, # 1
-  1 # 2
+  1, # 2
+  1 # 3
 )
 
 incremental_weights <- c(0)
