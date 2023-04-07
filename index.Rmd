@@ -213,16 +213,22 @@ x <- c(
   2,
   3,
   4,
-  5
+  5,
+  6,
+  7,
+  8
 )
 
 dates <- c(
-  "2023-01-27",
-  "2023-01-27",
-  "2023-01-30",
-  "2023-02-28",
-  "2023-03-10",
-  "2023-03-11"
+  "2023-01-27", # 0
+  "2023-01-27", # 1
+  "2023-01-30", # 2
+  "2023-02-28", # 3
+  "2023-03-10", # 4
+  "2023-03-11", # 5
+  "2023-03-31", # 6
+  "2023-01-1", # 7
+  "2023-01-6" # 8
 )
 
 events <- c(
@@ -231,7 +237,10 @@ events <- c(
   "Toimetulekutoetuse otsus oli seekord mitte arvestada tasemeõppetoetust tuluna ja toetussumma oli suurim.", # 2
   "Toimetulekutoetuse otsus oli seekord mitte arvestada tasemeõppetoetust tuluna.", # 3
   "Vaideotsus hinne jõusse jätta.", # 4
-  "Toidukeemia esimese testi tulemus 95,67 %." # 5
+  "Toidukeemia esimese testi tulemus 95,67 \\%.", # 5
+  "Minu tagaselja otsustati mu Erialasid Lõimiva Uuenduse projekt lõpetada.", # 6
+  "Dalia teatas, et soovib hoopis salvestisi saada ja arutada asja juristi juuresolekul.", # 7
+  "Õpilased innukalt ehitasid labürinti." # 8
 )
 
 weights <- c(
@@ -240,7 +249,10 @@ weights <- c(
   1, # 2
   1, # 3
   -1, # 4
-  1 # 5
+  1, # 5
+  -1, # 6
+  -1, # 7
+  1 # 8
 )
 
 incremental_weights <- c(0)
