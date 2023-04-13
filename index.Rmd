@@ -216,7 +216,10 @@ x <- c(
   5,
   6,
   7,
-  8
+  8,
+  9,
+  10,
+  11
 )
 
 dates <- c(
@@ -227,8 +230,11 @@ dates <- c(
   "2023-03-10", # 4
   "2023-03-11", # 5
   "2023-03-31", # 6
-  "2023-01-1", # 7
-  "2023-01-6" # 8
+  "2023-04-1", # 7
+  "2023-04-6", # 8
+  "2023-04-12", # 9
+  "2023-04-13", # 10
+  "2023-04-14" # 11
 )
 
 events <- c(
@@ -240,7 +246,10 @@ events <- c(
   "Toidukeemia esimese testi tulemus 95,67 \\%.", # 5
   "Minu tagaselja otsustati mu Erialasid Lõimiva Uuenduse projekt lõpetada.", # 6
   "Dalia teatas, et soovib hoopis salvestisi saada ja arutada asja juristi juuresolekul.", # 7
-  "Õpilased innukalt ehitasid labürinti." # 8
+  "Õpilased innukalt ehitasid labürinti.", # 8
+  "Vestlus muusikust kaastudengiga jättis mulje, et meeldime üksteisele.", # 9
+  "Õhinal õpilased loodusteaduste klubis peeglitelabürindi ja matemaatilise analüüsiga.", # 10
+  "Selgus, et kõikide rühmade õpilased õppisid meie keemiasessioonides oluliselt juurde." # 11
 )
 
 weights <- c(
@@ -252,7 +261,10 @@ weights <- c(
   1, # 5
   -1, # 6
   -1, # 7
-  1 # 8
+  1, # 8
+  1, # 9
+  1, # 10
+  1 # 11
 )
 
 incremental_weights <- c(0)
